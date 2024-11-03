@@ -102,7 +102,7 @@ class Cards {
 
       dotsWrap.appendChild(dots);
       menu.appendChild(menuDelete);
-      //menu.appendChild(menuChange);
+
       dotsWrap.appendChild(menu);
 
       dots.classList.add('hover');
@@ -160,4 +160,5 @@ function createNewCard(tag, topic, comment, viewTasks) {
    cards(viewTasks);
 }
 
-export { cards, createNewCard };
+
+export { cards, createNewCard, Cards };

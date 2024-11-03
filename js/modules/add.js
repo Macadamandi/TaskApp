@@ -9,6 +9,7 @@ function add(createTask, viewTasks) {
       display: block;
       border: 0;
       border-radius: 10px;
+      background-color: #dadedf;
    `;
    addButton.classList.add('hover');
    createTask.appendChild(addButton);
@@ -56,7 +57,7 @@ function add(createTask, viewTasks) {
          width: 100%;
          height: 40px;
          padding: 10px;
-         background-color: #f3f5f7;
+         background-color: #e0e2e3;
          border: none;
       `;
 
@@ -64,7 +65,7 @@ function add(createTask, viewTasks) {
          width: 100%;
          height: 40px;
          padding: 10px;
-         background-color: #f3f5f7;
+         background-color: #e0e2e3;
          border: none;
       `;
 
@@ -74,7 +75,7 @@ function add(createTask, viewTasks) {
          padding: 10px;
          height: 90px;
          resize: none;
-         background-color: #f3f5f7;
+         background-color: #e0e2e3;
          border: none;
       `;
 
@@ -118,7 +119,6 @@ function add(createTask, viewTasks) {
       addButton.style.display = 'none';
 
       modalWrapp.addEventListener('click', () => {
-         console.log('ModalBack');
          modalWrapp.style.display = 'none';
          addButton.style.display = 'block';
       });
