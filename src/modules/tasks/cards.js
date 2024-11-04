@@ -72,7 +72,7 @@ class Cards {
       `;
 
       dots.style = `
-         background-image: url('../../img/icons/icon-menu.png');
+         background-image: url('/src/assets/images/icons/icon-menu.png');
          width: 24px;
          height: 24px;   
          display: inline-block;

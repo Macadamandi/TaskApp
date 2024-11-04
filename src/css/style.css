@@ -24,6 +24,10 @@ textarea:focus {
     outline: none
 }
 
+a {
+    text-decoration: none;
+}
+
 .hover:hover {
     cursor: pointer;
 }
@@ -90,7 +94,7 @@ textarea:focus {
     height: 16px;
     left: 10px;
     transform: translateY(50%);
-    background-image: url("../img/icons/icon-search.png");
+    background-image: url("/src/assets/images/icons/icon-search.png");
 }
 
 .menu__search-button {
@@ -174,8 +178,17 @@ textarea:focus {
    background-color: #dddddd;
 }
 
-.task-panel {
+.ajax-content {
    width: 100%;
    display: flex;
    flex-direction: column;
+}
+
+.index-content {
+    padding: 50px;
+    background-color: #e3e3e3;
+}
+
+.index-content-list {
+    padding-left: 30px;
 }

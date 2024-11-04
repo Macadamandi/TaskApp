@@ -15,7 +15,7 @@ function add(createTask, viewTasks) {
    createTask.appendChild(addButton);
 
    addButton.addEventListener('click', () => {
-      const taskPanel = document.querySelector('.task-panel'),
+      const taskPanel = document.querySelector('.ajax-content'),
          modalAdd = document.createElement('div'),
          modalWrapp = document.createElement('div'),
          divLabel = document.createElement('div'),

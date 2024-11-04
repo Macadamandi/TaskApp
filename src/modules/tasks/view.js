@@ -2,7 +2,7 @@ const viewTasks = document.createElement('div'),
    createTask = document.createElement('div');
 
 function view() {
-   const taskPanel = document.querySelector('.task-panel');
+   const taskPanel = document.querySelector('.ajax-content');
 
    createTask.style = `
       border-bottom: 1px solid #dddddd;
