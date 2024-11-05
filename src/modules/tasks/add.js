@@ -120,6 +120,7 @@ function createModal(BTN_CONST, event) {
    divComment.appendChild(labelComment);
    divComment.appendChild(inputComment);
 
+   modalAdd.classList.add('dataModal');
    modalAdd.appendChild(divLabel);
    modalAdd.appendChild(divTopic);
    modalAdd.appendChild(divComment);
@@ -148,7 +149,12 @@ function createModal(BTN_CONST, event) {
       e.stopPropagation();
    });
 
-   return [inputLabel, inputTopic, inputComment, modalWrapp];
+   switch (BTN_CONST) {
+      case 'add':
+         return [inputLabel, inputTopic, inputComment, modalWrapp];
+      case 'change':
+         return [inputLabel, inputTopic, inputComment, modalAdd];
+   }
 }
 
 function createNewTask(tag, topic, comment, viewTasks, modalWrapp, addButton) {
