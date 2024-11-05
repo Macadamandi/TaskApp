@@ -96,12 +96,14 @@ class Cards {
       menuChange.textContent = 'Change';
       
       menuDelete.classList.add('hover', 'remove');
-      menuChange.classList.add('hover');
+      menuChange.classList.add('hover', 'change');
 
       menuDelete.setAttribute('data-id', `${this.id}`);
+      menuChange.setAttribute('data-id', `${this.id}`);
 
       dotsWrap.appendChild(dots);
       menu.appendChild(menuDelete);
+      menu.appendChild(menuChange);
 
       dotsWrap.appendChild(menu);
 

@@ -1,7 +1,10 @@
 import { createNewCard } from './cards.js';
 
+const addButton = document.createElement('button');
+const BTN_ADD = 'add';
+let clonedButton;
+
 function add(createTask, viewTasks) {
-   const addButton = document.createElement('button');
    addButton.innerText = 'Add Task';
    addButton.style = `
       width: 125px;
@@ -14,31 +17,43 @@ function add(createTask, viewTasks) {
    addButton.classList.add('hover');
    createTask.appendChild(addButton);
 
-   addButton.addEventListener('click', () => {
-      const taskPanel = document.querySelector('.ajax-content'),
-         modalAdd = document.createElement('div'),
-         modalWrapp = document.createElement('div'),
-         divLabel = document.createElement('div'),
-         divTopic = document.createElement('div'),
-         divComment = document.createElement('div'),
-         inputLabel = document.createElement('input'),
-         inputTopic = document.createElement('input'),
-         inputComment = document.createElement('textarea'),
-         labelLabel = document.createElement('label'),
-         labelTopic = document.createElement('label'),
-         labelComment = document.createElement('label');
+   clonedButton = addButton.cloneNode(true);
 
-      modalWrapp.style = `
+   addButton.addEventListener('click', () => {
+      const [inputLabel, inputTopic, inputComment, modalWrapp] = createModal(BTN_ADD);
+
+      clonedButton.addEventListener('click', () => {
+         createNewTask(inputLabel.value, inputTopic.value, inputComment.value, viewTasks, modalWrapp, addButton);
+      });
+
+   })
+}
+
+function createModal(BTN_CONST, event) {
+   const taskPanel = document.querySelector('.ajax-content'),
+      modalAdd = document.createElement('div'),
+      modalWrapp = document.createElement('div'),
+      divLabel = document.createElement('div'),
+      divTopic = document.createElement('div'),
+      divComment = document.createElement('div'),
+      inputLabel = document.createElement('input'),
+      inputTopic = document.createElement('input'),
+      inputComment = document.createElement('textarea'),
+      labelLabel = document.createElement('label'),
+      labelTopic = document.createElement('label'),
+      labelComment = document.createElement('label');
+
+   modalWrapp.style = `
          background-color: rgba(0,0,0,0.3);
          position: absolute;
          width: 100%;
          height: 100%;
       `;
 
-      taskPanel.style = `
+   taskPanel.style = `
          position: relative;
       `;
-      modalAdd.style = `
+   modalAdd.style = `
          width: 89%;
          height: 77%;;
          background-color: #ffffff;
@@ -53,7 +68,7 @@ function add(createTask, viewTasks) {
          align-items: center;
       `;
 
-      inputLabel.style = `
+   inputLabel.style = `
          width: 100%;
          height: 40px;
          padding: 10px;
@@ -61,7 +76,7 @@ function add(createTask, viewTasks) {
          border: none;
       `;
 
-      inputTopic.style = `
+   inputTopic.style = `
          width: 100%;
          height: 40px;
          padding: 10px;
@@ -69,7 +84,7 @@ function add(createTask, viewTasks) {
          border: none;
       `;
 
-      inputComment.style = `
+   inputComment.style = `
          width: 100%;
          height: 40px;
          padding: 10px;
@@ -79,59 +94,61 @@ function add(createTask, viewTasks) {
          border: none;
       `;
 
-      divLabel.style = `margin-bottom: 15px; width: 50%;`;
-      divTopic.style = `margin-bottom: 15px; width: 50%;`;
-      divComment.style = `margin-bottom: 15px; width: 50%;`;
+   divLabel.style = `margin-bottom: 15px; width: 50%;`;
+   divTopic.style = `margin-bottom: 15px; width: 50%;`;
+   divComment.style = `margin-bottom: 15px; width: 50%;`;
 
-      inputLabel.id = 'tag';
-      labelLabel.setAttribute('for', 'tag');
+   inputLabel.id = 'tag';
+   labelLabel.setAttribute('for', 'tag');
 
-      inputTopic.id = 'topic';
-      labelTopic.setAttribute('for', 'topic');
+   inputTopic.id = 'topic';
+   labelTopic.setAttribute('for', 'topic');
 
-      inputComment.id = 'comment';
-      labelComment.setAttribute('for', 'comment');
+   inputComment.id = 'comment';
+   labelComment.setAttribute('for', 'comment');
 
-      labelLabel.textContent = 'Tag';
-      labelTopic.textContent = 'Topic';
-      labelComment.textContent = 'Comment';
+   labelLabel.textContent = 'Tag';
+   labelTopic.textContent = 'Topic';
+   labelComment.textContent = 'Comment';
 
-      divLabel.appendChild(labelLabel);
-      divLabel.appendChild(inputLabel);
+   divLabel.appendChild(labelLabel);
+   divLabel.appendChild(inputLabel);
 
-      divTopic.appendChild(labelTopic);
-      divTopic.appendChild(inputTopic);
+   divTopic.appendChild(labelTopic);
+   divTopic.appendChild(inputTopic);
 
-      divComment.appendChild(labelComment);
-      divComment.appendChild(inputComment);
+   divComment.appendChild(labelComment);
+   divComment.appendChild(inputComment);
 
-      modalAdd.appendChild(divLabel);
-      modalAdd.appendChild(divTopic);
-      modalAdd.appendChild(divComment);
+   modalAdd.appendChild(divLabel);
+   modalAdd.appendChild(divTopic);
+   modalAdd.appendChild(divComment);
 
-      const clonedButton = addButton.cloneNode(true);
+   switch (BTN_CONST) {
+      case 'add':
+         modalAdd.appendChild(clonedButton);
+         modalWrapp.appendChild(modalAdd);
+         taskPanel.appendChild(modalWrapp);
+         break;
+      case 'change':
+         console.log(event);
+         modalWrapp.appendChild(modalAdd);
+         taskPanel.appendChild(modalWrapp);
+         break;
+   }
 
-      modalAdd.appendChild(clonedButton);
+   addButton.style.display = 'none';
 
-      modalWrapp.appendChild(modalAdd);
-      taskPanel.appendChild(modalWrapp);
+   modalWrapp.addEventListener('click', () => {
+      modalWrapp.style.display = 'none';
+      addButton.style.display = 'block';
+   });
 
-      addButton.style.display = 'none';
+   modalAdd.addEventListener('click', (e) => {
+      e.stopPropagation();
+   });
 
-      modalWrapp.addEventListener('click', () => {
-         modalWrapp.style.display = 'none';
-         addButton.style.display = 'block';
-      });
-
-      modalAdd.addEventListener('click', (e) => {
-         e.stopPropagation();
-      });
-
-      clonedButton.addEventListener('click', () => {
-         createNewTask(inputLabel.value, inputTopic.value, inputComment.value, viewTasks, modalWrapp, addButton);
-      });
-
-   })
+   return [inputLabel, inputTopic, inputComment, modalWrapp];
 }
 
 function createNewTask(tag, topic, comment, viewTasks, modalWrapp, addButton) {
@@ -145,4 +162,4 @@ function createNewTask(tag, topic, comment, viewTasks, modalWrapp, addButton) {
    }
 }
 
-export default add;
+export { add, createModal };
