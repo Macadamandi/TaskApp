@@ -14,7 +14,7 @@ function add(createTask, viewTasks) {
       border-radius: 10px;
       background-color: #dadedf;
    `;
-   addButton.classList.add('hover');
+   addButton.classList.add('hover', 'addButton');
    createTask.appendChild(addButton);
 
    clonedButton = addButton.cloneNode(true);
@@ -153,7 +153,7 @@ function createModal(BTN_CONST, event) {
       case 'add':
          return [inputLabel, inputTopic, inputComment, modalWrapp];
       case 'change':
-         return [inputLabel, inputTopic, inputComment, modalAdd];
+         return [inputLabel, inputTopic, inputComment, modalAdd, modalWrapp];
    }
 }
 

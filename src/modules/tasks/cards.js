@@ -97,6 +97,7 @@ class Cards {
       
       menuDelete.classList.add('hover', 'remove');
       menuChange.classList.add('hover', 'change');
+      menu.classList.add('option-list');
 
       menuDelete.setAttribute('data-id', `${this.id}`);
       menuChange.setAttribute('data-id', `${this.id}`);
