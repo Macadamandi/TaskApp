@@ -1,6 +1,7 @@
 import { Cards } from './cards';
+import { viewTasks, createTask, view } from './view.js';
 
-function filter(viewTasks) {
+function filter() {
    const menuSearch = document.querySelector('.menu__search'),
       inputSearch = menuSearch.querySelector('.menu__search-input'),
       buttonSearch = menuSearch.querySelector('.menu__search-button');
@@ -11,7 +12,7 @@ function filter(viewTasks) {
 
       cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
       cardsObj = cardsObj.filter((card) => {
-         if (req != '' && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
+         if (req && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
             return true;
          } else {
             return false;
@@ -20,7 +21,7 @@ function filter(viewTasks) {
 
       restoredCards = cardsObj.map(data => new Cards(data.label, data.topic, data.comment, data.id));
       viewTasks.innerHTML = '';
-      restoredCards.forEach(card => card.createCard(viewTasks));
+      restoredCards.forEach(card => card.createCard());
 
    });
 }

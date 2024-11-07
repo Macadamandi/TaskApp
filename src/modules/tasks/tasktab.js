@@ -45,6 +45,7 @@ function loadScript(src, initTasks) {
          if (typeof initTasks === 'function') {
             initTasks();
          }
+         else initTasks();
       };
       document.body.appendChild(newScript);
    }

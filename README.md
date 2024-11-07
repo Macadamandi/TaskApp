@@ -9,3 +9,9 @@ There is development of TaskApp in process.
 I want to Add:
   1. Tab "Calendar".
   2. Filters: A-z, z-A, by Date.
+
+Change:
+  1. Fix bag of duplicates
+      success
+  2. Fix show time without rewrite
+

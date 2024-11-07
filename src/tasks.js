@@ -7,9 +7,9 @@ import change from './modules/tasks/change';
 
 export function initTasks () {
    view();
-   add(createTask, viewTasks);
-   cards(viewTasks);
-   removeCard(viewTasks);
-   change(viewTasks);
-   filter(viewTasks);
+   add();
+   cards();
+   removeCard();
+   change();
+   filter();
 }

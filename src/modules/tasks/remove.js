@@ -1,6 +1,7 @@
 import { cards } from "./cards";
+import { viewTasks, createTask, view } from './view.js';
 
-function removeCard(viewTasks) {
+function removeCard() {
    viewTasks.addEventListener('click', (e) => {
       if (e.target.classList.contains('remove')) {
          const cardId = e.target.getAttribute('data-id');
@@ -9,8 +10,7 @@ function removeCard(viewTasks) {
          cardsObj = cardsObj.filter(card => card.id !== cardId);
          localStorage.setItem('cards', JSON.stringify(cardsObj));
 
-         viewTasks.innerHTML = '';
-         cards(viewTasks);
+         cards();
       }
    });
 }

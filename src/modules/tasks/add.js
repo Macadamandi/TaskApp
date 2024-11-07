@@ -1,10 +1,10 @@
 import { createNewCard } from './cards.js';
+import { viewTasks, createTask, view } from './view.js';
 
-const addButton = document.createElement('button');
 const BTN_ADD = 'add';
-let clonedButton;
 
-function add(createTask, viewTasks) {
+function add() {
+   const addButton = document.createElement('button');
    addButton.innerText = 'Add Task';
    addButton.style = `
       width: 125px;
@@ -17,19 +17,14 @@ function add(createTask, viewTasks) {
    addButton.classList.add('hover', 'addButton');
    createTask.appendChild(addButton);
 
-   clonedButton = addButton.cloneNode(true);
 
    addButton.addEventListener('click', () => {
-      const [inputLabel, inputTopic, inputComment, modalWrapp] = createModal(BTN_ADD);
-
-      clonedButton.addEventListener('click', () => {
-         createNewTask(inputLabel.value, inputTopic.value, inputComment.value, viewTasks, modalWrapp, addButton);
-      });
-
+      createModal(BTN_ADD);
    })
 }
 
-function createModal(BTN_CONST, event) {
+
+function createModal(BTN_CONST) {
    const taskPanel = document.querySelector('.ajax-content'),
       modalAdd = document.createElement('div'),
       modalWrapp = document.createElement('div'),
@@ -127,22 +122,31 @@ function createModal(BTN_CONST, event) {
 
    switch (BTN_CONST) {
       case 'add':
-         modalAdd.appendChild(clonedButton);
+         const addButtonToLocalStorage = document.createElement('button');
+         addButtonToLocalStorage.innerText = 'Add';
+         addButtonToLocalStorage.style = `
+            width: 125px;
+            height: 50px;
+            display: block;
+            border: 0;
+            border-radius: 10px;
+            background-color: #dadedf;
+         `;
+         addButtonToLocalStorage.classList.add('hover');
+
+         modalAdd.appendChild(addButtonToLocalStorage);
          modalWrapp.appendChild(modalAdd);
          taskPanel.appendChild(modalWrapp);
+         addToLocalStorage(inputLabel, inputTopic, inputComment, modalWrapp, addButtonToLocalStorage);
          break;
       case 'change':
-         console.log(event);
          modalWrapp.appendChild(modalAdd);
          taskPanel.appendChild(modalWrapp);
          break;
    }
 
-   addButton.style.display = 'none';
-
    modalWrapp.addEventListener('click', () => {
-      modalWrapp.style.display = 'none';
-      addButton.style.display = 'block';
+      modalWrapp.remove();
    });
 
    modalAdd.addEventListener('click', (e) => {
@@ -157,11 +161,16 @@ function createModal(BTN_CONST, event) {
    }
 }
 
-function createNewTask(tag, topic, comment, viewTasks, modalWrapp, addButton) {
+function addToLocalStorage(inputLabel, inputTopic, inputComment, modalWrapp, addButtonToLocalStorage) {
+   addButtonToLocalStorage.addEventListener('click', () => {
+      createNewTask(inputLabel.value, inputTopic.value, inputComment.value, modalWrapp);
+   });
+}
+
+function createNewTask(tag, topic, comment, modalWrapp) {
    if (tag != '' && topic != '' && comment != '') {
-      createNewCard(tag, topic, comment, viewTasks);
-      modalWrapp.style.display = 'none';
-      addButton.style.display = 'block';
+      createNewCard(tag, topic, comment);
+      modalWrapp.remove();
    }
    else {
       console.log('Fields cannot be empty');

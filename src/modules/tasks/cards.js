@@ -1,3 +1,5 @@
+import { viewTasks, createTask, view } from './view.js';
+
 class Cards {
    constructor(label, topic, comment, id) {
       this.label = label;
@@ -6,14 +8,14 @@ class Cards {
       this.id = id || generateUniqueId();
    }
 
-   createCard(viewTasks) {
+   createCard() {
       const cardWrap = document.createElement('div'),
          cardLabel = document.createElement('span'),
          cardTopic = document.createElement('h3'),
          cardComment = document.createElement('p'),
          cardData = document.createElement('span'),
          dotsWrap = document.createElement('div'),
-         dots =  document.createElement('span'),
+         dots = document.createElement('span'),
          menu = document.createElement('div'),
          menuDelete = document.createElement('div'),
          menuChange = document.createElement('div');
@@ -50,8 +52,10 @@ class Cards {
          margin-bottom: 20px;
          align-self: start;
          padding: 3px 6px;
-         background-color: #37B1B2;
+         background-color: ${generateBackgroundColor()};
          border-radius: 10px;
+         font-size: 11px;
+         color: #ffffff;
       `;
       cardTopic.style = `
          margin-bottom: 10px;
@@ -60,6 +64,18 @@ class Cards {
       cardComment.style = `
          margin-bottom: 40px;
          height: 80px;
+         background-color: blanchedalmond;
+         border-radius: 5px;
+         padding: 10px;
+      `;
+
+      cardData.style = `
+         display: inline-block;
+         border-radius: 2px;
+         padding-top: 10px;
+         text-align: center;
+         font-size: 11px;
+         border-top: 1px solid gainsboro;
       `;
 
       dotsWrap.style = `
@@ -94,7 +110,7 @@ class Cards {
 
       menuDelete.textContent = 'Delete';
       menuChange.textContent = 'Change';
-      
+
       menuDelete.classList.add('hover', 'remove');
       menuChange.classList.add('hover', 'change');
       menu.classList.add('option-list');
@@ -129,7 +145,7 @@ class Cards {
       });
 
       document.addEventListener('click', (e) => {
-         if(!menu.contains(e.target) && !dots.contains(e.target)) {
+         if (!menu.contains(e.target) && !dots.contains(e.target)) {
             menu.classList.remove('show');
             menu.classList.add('hide');
          }
@@ -141,16 +157,22 @@ function generateUniqueId() {
    return `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 }
 
-function cards(viewTasks) {
+function generateBackgroundColor() {
+   const colors = ['#404141', '#a1a1a1', '#c38080', '#b5639c', '#9c70e3', '#467ed1', '#2c9590', '#41a752', '#afb147', '#cb8d58', '#5c3d99', '#ab4f4f', '#4b6584', '#2a9d8f', '#c44536', '#6a994e', '#856084', '#306b34', '#3d348b', '#6b2737'];
+
+   return colors[Math.floor(Math.random() * 20)];
+}
+
+function cards() {
    const cards = JSON.parse(localStorage.getItem('cards')) || [];
-   console.log(cards);
 
    const restoredCards = cards.map(data => new Cards(data.label, data.topic, data.comment, data.id));
 
-   restoredCards.forEach(card => card.createCard(viewTasks));
+   viewTasks.innerHTML = '';
+   restoredCards.forEach(card => card.createCard());
 }
 
-function createNewCard(tag, topic, comment, viewTasks) {
+function createNewCard(tag, topic, comment) {
    const card = new Cards(tag, topic, comment);
 
    const cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
@@ -159,8 +181,7 @@ function createNewCard(tag, topic, comment, viewTasks) {
 
    localStorage.setItem('cards', JSON.stringify(cardsObj));
 
-   viewTasks.innerHTML = '';
-   cards(viewTasks);
+   cards();
 }
 
 

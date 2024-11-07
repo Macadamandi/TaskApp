@@ -1,22 +1,26 @@
 import { cards } from "./cards";
 import { createModal } from "./add";
+import { viewTasks, createTask, view } from './view.js';
 
 const BTN_CHANGE = 'change';
 
-function change(viewTasks) {
+function change() {
    viewTasks.addEventListener('click', (e) => {
       if (e.target.classList.contains('change')) {
          const cardId = e.target.getAttribute('data-id');
          const changeButton = document.createElement('button');
-         const addButton = document.querySelector('.addButton');
+         //const addButton = document.querySelector('.addButton');
          let changeObj = document;
          let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
          let [inputLabel, inputTopic, inputComment, modalAdd, modalWrapp] = createModal(BTN_CHANGE, e);
 
-         changeObj = cardsObj.filter(obj => cardId == obj.id);
-         inputLabel.value = changeObj[0].label;
-         inputTopic.value = changeObj[0].topic;
-         inputComment.value = changeObj[0].comment;
+         changeObj = cardsObj.find(obj => cardId == obj.id);
+
+         if (changeObj) {
+            inputLabel.value = changeObj.label;
+            inputTopic.value = changeObj.topic;
+            inputComment.value = changeObj.comment;
+         }
 
          changeButton.innerText = 'Change';
          changeButton.style = `
@@ -33,7 +37,7 @@ function change(viewTasks) {
          modalAdd.appendChild(changeButton);
 
          changeButton.addEventListener('click', ()=> {
-            if (inputLabel.value != '' && inputTopic.value != '' && inputComment.value != '') {
+            if (inputLabel.value && inputTopic.value && inputComment.value) {
                cardsObj = cardsObj.map(card => {
                   if (card.id == cardId) {
                      return {
@@ -46,10 +50,9 @@ function change(viewTasks) {
                   else return card;
                });
                localStorage.setItem('cards', JSON.stringify(cardsObj));
-               modalWrapp.style.display = 'none';
-               viewTasks.innerHTML = '';
-               cards(viewTasks);
-               addButton.style.display = 'block';
+               modalWrapp.remove();
+               cards();
+               //addButton.style.display = 'block';
             } else {
                console.log('Please, fill inputs');
             }
