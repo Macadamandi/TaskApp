@@ -1,5 +1,5 @@
 import { createNewCard } from './cards.js';
-import { viewTasks, createTask, view } from './view.js';
+import { createTask } from './view.js';
 
 const BTN_ADD = 'add';
 

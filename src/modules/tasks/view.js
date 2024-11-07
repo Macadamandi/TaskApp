@@ -1,4 +1,5 @@
 const viewTasks = document.createElement('div'),
+   filterDataTask = document.createElement('div'),
    createTask = document.createElement('div');
 
 function view() {
@@ -16,6 +17,16 @@ function view() {
       align-items: center;
    `;
 
+   filterDataTask.style = `
+      border-bottom: 1px solid #dddddd;
+      width: 100%;
+      height: 50px;
+      min-height: 50px;
+      max-height: 50px;
+      display: flex;
+      align-items: center;
+   `;
+
    viewTasks.style = `
       background-color: #dadedf;
       width: 100%;
@@ -30,7 +41,8 @@ function view() {
    `;
 
    taskPanel.appendChild(createTask);
+   taskPanel.appendChild(filterDataTask);
    taskPanel.appendChild(viewTasks);
 }
 
-export { view, viewTasks, createTask };
+export { view, viewTasks, createTask, filterDataTask};

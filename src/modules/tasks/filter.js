@@ -1,30 +1,39 @@
-import { Cards } from './cards';
-import { viewTasks, createTask, view } from './view.js';
+import { filterDataTask } from './view.js';
 
 function filter() {
-   const menuSearch = document.querySelector('.menu__search'),
-      inputSearch = menuSearch.querySelector('.menu__search-input'),
-      buttonSearch = menuSearch.querySelector('.menu__search-button');
+      const selectFilter = document.createElement('select'),
+            labelForSelect = document.createElement('span'),
+            optionData = document.createElement('option'),
+            optionTag = document.createElement('option');
 
-   buttonSearch.addEventListener('click', () => {
-      let cardsObj = [], restoredCards = [];
-      const req = inputSearch.value;
+      selectFilter.style = `
+            margin-left: 20px;
+            width: 100px;
+            height: 30px;
+            outline: none;
+            border: 1px solid #dadedf;
+            border-radius: 5px;
+      `;
 
-      cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
-      cardsObj = cardsObj.filter((card) => {
-         if (req && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
-            return true;
-         } else {
-            return false;
-         }
-      });
+      labelForSelect.style = `
+            margin-left: 20px;
+      `;
 
-      restoredCards = cardsObj.map(data => new Cards(data.label, data.topic, data.comment, data.id));
-      viewTasks.innerHTML = '';
-      restoredCards.forEach(card => card.createCard());
+      labelForSelect.innerText = 'Sort by:';
+      optionData.innerText = 'Data';
+      optionTag.innerText = 'Tag';
 
-   });
+      selectFilter.appendChild(optionData);
+      selectFilter.appendChild(optionTag);
+
+      selectFilter.classList.add('hover');
+
+      filterDataTask.appendChild(selectFilter);
+      selectFilter.insertAdjacentElement('beforebegin', labelForSelect);
 }
 
+function filterByData() {
+      
+}
 
 export { filter };

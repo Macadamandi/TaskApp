@@ -1,6 +1,6 @@
-import { cards } from "./cards";
+import { cards, createData } from "./cards";
 import { createModal } from "./add";
-import { viewTasks, createTask, view } from './view.js';
+import { viewTasks } from './view.js';
 
 const BTN_CHANGE = 'change';
 
@@ -44,7 +44,8 @@ function change() {
                         label: inputLabel.value,
                         topic: inputTopic.value,
                         comment: inputComment.value,
-                        id: card.id
+                        id: card.id,
+                        data: createData()
                      }
                   }
                   else return card;

@@ -1,5 +1,5 @@
 import { cards } from "./cards";
-import { viewTasks, createTask, view } from './view.js';
+import { viewTasks } from './view.js';
 
 function removeCard() {
    viewTasks.addEventListener('click', (e) => {

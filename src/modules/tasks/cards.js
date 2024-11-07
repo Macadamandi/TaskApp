@@ -1,11 +1,13 @@
-import { viewTasks, createTask, view } from './view.js';
+import { viewTasks } from './view.js';
 
 class Cards {
-   constructor(label, topic, comment, id) {
+   constructor(label, topic, comment, id = generateUniqueId(), data = createData()) {
       this.label = label;
       this.topic = topic;
       this.comment = comment;
-      this.id = id || generateUniqueId();
+      //this.id = id || generateUniqueId();
+      this.id = id;
+      this.data = data;
    }
 
    createCard() {
@@ -19,16 +21,6 @@ class Cards {
          menu = document.createElement('div'),
          menuDelete = document.createElement('div'),
          menuChange = document.createElement('div');
-
-      const currentDate = new Date();
-
-      const day = String(currentDate.getDate()).padStart(2, '0'); // День с ведущим нулем
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Месяц (начинается с 0, добавляем 1)
-      const year = currentDate.getFullYear(); // Год
-      const hours = String(currentDate.getHours()).padStart(2, '0'); // Часы с ведущим нулем
-      const minutes = String(currentDate.getMinutes()).padStart(2, '0'); // Минуты с ведущим нулем
-
-      const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}`;
 
       cardWrap.style = `
          flex: 0 0 calc(25% - 20px);
@@ -46,7 +38,7 @@ class Cards {
       cardLabel.textContent = this.label;
       cardTopic.textContent = this.topic;
       cardComment.textContent = this.comment;
-      cardData.textContent = formattedDate;
+      cardData.textContent = this.data;
 
       cardLabel.style = `
          margin-bottom: 20px;
@@ -153,6 +145,20 @@ class Cards {
    }
 }
 
+function createData() {
+   const currentDate = new Date();
+
+   const day = String(currentDate.getDate()).padStart(2, '0'); // День с ведущим нулем
+   const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Месяц (начинается с 0, добавляем 1)
+   const year = currentDate.getFullYear(); // Год
+   const hours = String(currentDate.getHours()).padStart(2, '0'); // Часы с ведущим нулем
+   const minutes = String(currentDate.getMinutes()).padStart(2, '0'); // Минуты с ведущим нулем
+
+   const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}`;
+
+   return formattedDate;
+}
+
 function generateUniqueId() {
    return `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 }
@@ -166,7 +172,7 @@ function generateBackgroundColor() {
 function cards() {
    const cards = JSON.parse(localStorage.getItem('cards')) || [];
 
-   const restoredCards = cards.map(data => new Cards(data.label, data.topic, data.comment, data.id));
+   const restoredCards = cards.map(obj => new Cards(obj.label, obj.topic, obj.comment, obj.id, obj.data));
 
    viewTasks.innerHTML = '';
    restoredCards.forEach(card => card.createCard());
@@ -185,4 +191,4 @@ function createNewCard(tag, topic, comment) {
 }
 
 
-export { cards, createNewCard, Cards };
+export { cards, createNewCard, Cards, createData };

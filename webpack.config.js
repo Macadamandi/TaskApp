@@ -1,4 +1,3 @@
-const { watch } = require('fs');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -7,12 +6,12 @@ module.exports = {
   entry: {
     index: './src/index.js',
     calendar: './src/calendar.js',
-    tasks: './src/tasks.js'
+    tasks: './src/tasks.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
-    clean: true
+    clean: true, // Очистка папки dist перед сборкой
   },
   watch: true,
   module: {
@@ -21,29 +20,29 @@ module.exports = {
         test: /\.js$/, // Для обработки JavaScript файлов
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader', // Используйте Babel для транспиляции
+          loader: 'babel-loader', // Используем Babel для транспиляции
         },
-      },
+      }
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/templates/index.html',
       filename: 'index.html',
-      chunks: ['index'],  // Подключение index.bundle.js к index.html
+      chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
       template: './src/templates/calendar.html',
       filename: 'calendar.html',
-      chunks: ['calendar'],  // Подключение calendar.bundle.js к calendar.html
+      chunks: ['calendar'],
     }),
     new HtmlWebpackPlugin({
       template: './src/templates/tasks.html',
       filename: 'tasks.html',
-      chunks: ['tasks'],  // Подключение tasks.bundle.js к tasks.html
+      chunks: ['tasks'],
     }),
   ],
   resolve: {
-    extensions: ['.js'], // Расширения файлов для импорта
+    extensions: ['.js'],
   },
 };
