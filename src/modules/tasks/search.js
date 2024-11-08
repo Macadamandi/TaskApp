@@ -10,23 +10,26 @@ function search() {
       let cardsObj = [], restoredCards = [];
       const req = inputSearch.value;
 
-      if(req) {
+      if (req) {
          cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
-         cardsObj = cardsObj.filter((card) => {
-            if (req && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
-               return true;
-            } else {
-               return false;
-            }
-         });
 
-         if(cardsObj.length != 0) {
-            console.log(cardsObj);
-            restoredCards = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
-            viewTasks.innerHTML = '';
-            restoredCards.forEach(card => card.createCard());
+         if (cardsObj.length != 0) {
+            cardsObj = cardsObj.filter((card) => {
+               if (req && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
+                  return true;
+               } else {
+                  return false;
+               }
+            });
+            if (cardsObj.length != 0) {
+               restoredCards = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
+               viewTasks.innerHTML = '';
+               restoredCards.forEach(card => card.createCard());
+            } else {
+               console.log('Result not found');
+            }
          } else {
-            console.log('Date not found');
+            console.log('LocalStorage is empty');
          }
 
       } else {

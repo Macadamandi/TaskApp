@@ -45,26 +45,32 @@ function filter() {
 function filterByOption() {
       const selectButton = document.querySelector('.selectButton');
       //const selectOptions = selectButton.querySelectorAll('option');
-      
+
       selectButton.addEventListener('change', (e) => {
             const filter = e.target.value;
-            switch(filter) {
-                  case 'date-old':
-                        filterByData(filter);
-                        break;
-                  case 'date-new':
-                        filterByData(filter);
-                        break;
-                  case 'tag':
-                        filterByTag();
-                        break;
+            const cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
+
+            if (cardsObj.length != 0) {
+                  switch (filter) {
+                        case 'date-old':
+                              filterByData(filter);
+                              break;
+                        case 'date-new':
+                              filterByData(filter);
+                              break;
+                        case 'tag':
+                              filterByTag();
+                              break;
+                  }
+            } else {
+                  console.log('LocalStorage is empty');
             }
       });
 }
 
 function filterByData(filter) {
       let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
-      
+
       if (filter == 'date-old') {
             cardsObj = cardsObj.sort((a, b) => a.data - b.data);
             cardsObj = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));

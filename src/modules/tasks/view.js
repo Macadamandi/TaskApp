@@ -43,6 +43,7 @@ function view() {
    taskPanel.appendChild(createTask);
    taskPanel.appendChild(filterDataTask);
    taskPanel.appendChild(viewTasks);
+
 }
 
 export { view, viewTasks, createTask, filterDataTask};
