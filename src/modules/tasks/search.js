@@ -10,18 +10,28 @@ function search() {
       let cardsObj = [], restoredCards = [];
       const req = inputSearch.value;
 
-      cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
-      cardsObj = cardsObj.filter((card) => {
-         if (req && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
-            return true;
-         } else {
-            return false;
-         }
-      });
+      if(req) {
+         cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
+         cardsObj = cardsObj.filter((card) => {
+            if (req && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
+               return true;
+            } else {
+               return false;
+            }
+         });
 
-      restoredCards = cardsObj.map(data => new Cards(data.label, data.topic, data.comment, data.id));
-      viewTasks.innerHTML = '';
-      restoredCards.forEach(card => card.createCard());
+         if(cardsObj.length != 0) {
+            console.log(cardsObj);
+            restoredCards = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
+            viewTasks.innerHTML = '';
+            restoredCards.forEach(card => card.createCard());
+         } else {
+            console.log('Date not found');
+         }
+
+      } else {
+         console.log('Please, enter keywords');
+      }
 
    });
 }

@@ -9,7 +9,6 @@ function change() {
       if (e.target.classList.contains('change')) {
          const cardId = e.target.getAttribute('data-id');
          const changeButton = document.createElement('button');
-         //const addButton = document.querySelector('.addButton');
          let changeObj = document;
          let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
          let [inputLabel, inputTopic, inputComment, modalAdd, modalWrapp] = createModal(BTN_CHANGE, e);
@@ -45,7 +44,8 @@ function change() {
                         topic: inputTopic.value,
                         comment: inputComment.value,
                         id: card.id,
-                        data: createData()
+                        data: createData(),
+                        color: card.color
                      }
                   }
                   else return card;
@@ -53,7 +53,6 @@ function change() {
                localStorage.setItem('cards', JSON.stringify(cardsObj));
                modalWrapp.remove();
                cards();
-               //addButton.style.display = 'block';
             } else {
                console.log('Please, fill inputs');
             }

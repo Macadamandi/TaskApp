@@ -1,13 +1,13 @@
 import { viewTasks } from './view.js';
 
 class Cards {
-   constructor(label, topic, comment, id = generateUniqueId(), data = createData()) {
+   constructor(label, topic, comment, id = generateUniqueId(), data = createData(), color = generateBackgroundColor()) {
       this.label = label;
       this.topic = topic;
       this.comment = comment;
-      //this.id = id || generateUniqueId();
       this.id = id;
       this.data = data;
+      this.color = color;
    }
 
    createCard() {
@@ -35,16 +35,16 @@ class Cards {
          position: relative;
       `;
 
-      cardLabel.textContent = this.label;
+      cardLabel.textContent = this.label.toLowerCase();
       cardTopic.textContent = this.topic;
       cardComment.textContent = this.comment;
-      cardData.textContent = this.data;
+      cardData.textContent = dataToString(this.data);
 
       cardLabel.style = `
          margin-bottom: 20px;
          align-self: start;
          padding: 3px 6px;
-         background-color: ${generateBackgroundColor()};
+         background-color: ${this.color};
          border-radius: 10px;
          font-size: 11px;
          color: #ffffff;
@@ -147,7 +147,13 @@ class Cards {
 
 function createData() {
    const currentDate = new Date();
+   const currentDateSec = currentDate.getTime();
 
+   return currentDateSec;
+}
+
+function dataToString(currentDateinSec) {
+   const currentDate = new Date(currentDateinSec);
    const day = String(currentDate.getDate()).padStart(2, '0'); // День с ведущим нулем
    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Месяц (начинается с 0, добавляем 1)
    const year = currentDate.getFullYear(); // Год
@@ -172,7 +178,7 @@ function generateBackgroundColor() {
 function cards() {
    const cards = JSON.parse(localStorage.getItem('cards')) || [];
 
-   const restoredCards = cards.map(obj => new Cards(obj.label, obj.topic, obj.comment, obj.id, obj.data));
+   const restoredCards = cards.map(obj => new Cards(obj.label, obj.topic, obj.comment, obj.id, obj.data, obj.color));
 
    viewTasks.innerHTML = '';
    restoredCards.forEach(card => card.createCard());
