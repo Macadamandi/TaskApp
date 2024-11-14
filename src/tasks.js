@@ -6,12 +6,12 @@ import { search } from './modules/tasks/search';
 import change from './modules/tasks/change';
 import { filter } from './modules/tasks/filter';
 
-export function initTasks() {
-   view();
-   add();
-   cards();
-   removeCard();
-   change();
-   search();
-   filter();
-}
+
+view();
+add();
+filter();
+cards();
+removeCard();
+change();
+search();
+

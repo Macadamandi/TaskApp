@@ -186,15 +186,51 @@ a {
 
 .index-content {
     padding: 50px;
-    background-color: #e3e3e3;
+    background: linear-gradient(45deg, rgb(39 36 225 / 18%), rgb(34 123 50 / 24%));
+    font-size: 0.9rem;
 }
 
 .index-content-list {
     padding-left: 30px;
+    list-style: none;
+}
+
+.index-content-list li {
+    position: relative;
+}
+
+.index-content-list li::before {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    content: url('../assets/images/icons/check.png');
+}
+
+.index-content-list li::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    width: 6px;
+    height: 6px;
+    left: -15px;
+    filter: blur(8px);
+    background-color: #06dd5a;
 }
 
 .img-filter {
     background-image: url("/src/assets/images/icons/filter.png");
     width: 24px;
     height: 24px;
+}
+
+#calendar {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgb(39 36 225 / 18%), rgb(34 123 50 / 24%));
+    padding: 40px;
+    /* background-image: url("../assets/images/simple-calendar-fullcalendar.jpg"); */
+    background-clip: border-box;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
 }

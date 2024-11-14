@@ -10,7 +10,10 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: (pathData) => {
+      const name = pathData.chunk.name;
+      return `${name}/${name}.bundle.js`; // JS файлы будут собираться в папки по имени
+    },
     clean: true, // Очистка папки dist перед сборкой
   },
   watch: true,
@@ -22,24 +25,28 @@ module.exports = {
         use: {
           loader: 'babel-loader', // Используем Babel для транспиляции
         },
-      }
+      },
+      {
+        test: /\.css$/, // Для обработки CSS файлов (если нужно)
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/templates/index.html',
-      filename: 'index.html',
-      chunks: ['index'],
+      template: './src/templates/index.html', // Шаблон для главной страницы
+      filename: 'index/index.html', // Генерируем файл в папке index с именем index.html
+      chunks: ['index'], // Подключаем только index.bundle.js
     }),
     new HtmlWebpackPlugin({
-      template: './src/templates/calendar.html',
-      filename: 'calendar.html',
-      chunks: ['calendar'],
+      template: './src/templates/calendar.html', // Шаблон для страницы календаря
+      filename: 'calendar/calendar.html', // Генерируем файл в папке calendar с именем calendar.html
+      chunks: ['calendar'], // Подключаем только calendar.bundle.js
     }),
     new HtmlWebpackPlugin({
-      template: './src/templates/tasks.html',
-      filename: 'tasks.html',
-      chunks: ['tasks'],
+      template: './src/templates/tasks.html', // Шаблон для страницы задач
+      filename: 'tasks/tasks.html', // Генерируем файл в папке tasks с именем tasks.html
+      chunks: ['tasks'], // Подключаем только tasks.bundle.js
     }),
   ],
   resolve: {

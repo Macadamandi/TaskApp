@@ -23,8 +23,9 @@ function change() {
 
          changeButton.innerText = 'Change';
          changeButton.style = `
-            width: 125px;
+            width: 50%;
             height: 50px;
+            margin-top: 15px;
             display: block;
             border: 0;
             border-radius: 10px;

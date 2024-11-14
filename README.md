@@ -5,11 +5,10 @@ There is development of TaskApp in process.
   4. Add Modal for button "Add".
   5. Add function "Filter" for Search button by tag & topic.
   6. Add function "Change" task.
-  7. Add function "Filter" for select sort "by Date"
+  7. Add function "Filter" for select sort "by Date", "by Tag"
 
 I want to Add:
   1. Tab "Calendar".
-  2. Filters: A-z, z-A.
 
 
 

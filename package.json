@@ -19,6 +19,8 @@
     "webpack-dev-server": "^5.1.0"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
     "fullcalendar": "^6.1.15"
   }
 }

@@ -28,7 +28,7 @@ function view() {
    `;
 
    viewTasks.style = `
-      background-color: #dadedf;
+      background: linear-gradient(45deg, rgb(39 36 225 / 18%), rgb(34 123 50 / 24%));
       width: 100%;
       flex-grow: 5;
       display: flex;

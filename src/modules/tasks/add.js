@@ -49,7 +49,7 @@ function createModal(BTN_CONST) {
          position: relative;
       `;
    modalAdd.style = `
-         width: 89%;
+         width: 50%;
          height: 77%;;
          background-color: #ffffff;
          left: 50%;
@@ -89,9 +89,9 @@ function createModal(BTN_CONST) {
          border: none;
       `;
 
-   divLabel.style = `margin-bottom: 15px; width: 50%;`;
-   divTopic.style = `margin-bottom: 15px; width: 50%;`;
-   divComment.style = `margin-bottom: 15px; width: 50%;`;
+   divLabel.style = `margin-bottom: 15px; width: 80%;`;
+   divTopic.style = `margin-bottom: 15px; width: 80%;`;
+   divComment.style = `margin-bottom: 15px; width: 80%;`;
 
    inputLabel.id = 'tag';
    labelLabel.setAttribute('for', 'tag');
@@ -125,7 +125,8 @@ function createModal(BTN_CONST) {
          const addButtonToLocalStorage = document.createElement('button');
          addButtonToLocalStorage.innerText = 'Add';
          addButtonToLocalStorage.style = `
-            width: 125px;
+            width: 50%;
+            margin-top: 15px;
             height: 50px;
             display: block;
             border: 0;

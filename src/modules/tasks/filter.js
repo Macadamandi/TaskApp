@@ -6,7 +6,8 @@ function filter() {
             labelForSelect = document.createElement('span'),
             optionDataOld = document.createElement('option'),
             optionDataNew = document.createElement('option'),
-            optionTag = document.createElement('option');
+            optionTagAz = document.createElement('option'),
+            optionTagZa = document.createElement('option');
 
       selectFilter.style = `
             margin-left: 20px;
@@ -23,16 +24,19 @@ function filter() {
 
       optionDataOld.value = 'date-old';
       optionDataNew.value = 'date-new';
-      optionTag.value = 'tag';
+      optionTagAz.value = 'tag-az';
+      optionTagZa.value = 'tag-za';
 
       labelForSelect.innerText = 'Sort by:';
       optionDataOld.innerText = 'Date old';
       optionDataNew.innerText = 'Date new';
-      optionTag.innerText = 'Tag';
+      optionTagAz.innerText = 'Tag a-z';
+      optionTagZa.innerText = 'Tag z-a';
 
-      selectFilter.appendChild(optionTag);
-      selectFilter.appendChild(optionDataOld);
       selectFilter.appendChild(optionDataNew);
+      selectFilter.appendChild(optionDataOld);
+      selectFilter.appendChild(optionTagAz);
+      selectFilter.appendChild(optionTagZa);
 
       selectFilter.classList.add('hover', 'selectButton');
 
@@ -40,53 +44,62 @@ function filter() {
       selectFilter.insertAdjacentElement('beforebegin', labelForSelect);
 
       filterByOption();
+
+      const selectButton = document.querySelector('.selectButton');
+      filterByAttr(selectButton.value);
+      localStorage.setItem('filter', selectButton.value);
+
+      localStorage.removeItem('searchCards');
+      localStorage.removeItem('search');
 }
 
 function filterByOption() {
       const selectButton = document.querySelector('.selectButton');
-      //const selectOptions = selectButton.querySelectorAll('option');
-
+      filterByAttr(localStorage.getItem('filter'));
       selectButton.addEventListener('change', (e) => {
             const filter = e.target.value;
+            localStorage.setItem('filter', e.target.value);
             const cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
+            console.log(filter);
 
             if (cardsObj.length != 0) {
-                  switch (filter) {
-                        case 'date-old':
-                              filterByData(filter);
-                              break;
-                        case 'date-new':
-                              filterByData(filter);
-                              break;
-                        case 'tag':
-                              filterByTag();
-                              break;
-                  }
+                  filterByAttr(filter);
             } else {
                   console.log('LocalStorage is empty');
             }
       });
 }
 
-function filterByData(filter) {
+function filterByAttr(filter) {
       let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
+
+      if(localStorage.getItem('search') === 'true') {
+            cardsObj = JSON.parse(localStorage.getItem('searchCards'));
+      }
+
 
       if (filter == 'date-old') {
             cardsObj = cardsObj.sort((a, b) => a.data - b.data);
-            cardsObj = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
       }
 
       if (filter == 'date-new') {
             cardsObj = cardsObj.sort((a, b) => b.data - a.data);
-            cardsObj = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
       }
+
+      if(filter === 'tag-az') {
+            cardsObj = cardsObj.sort((a,b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
+      }
+
+      if(filter === 'tag-za') {
+            cardsObj = cardsObj.sort((a,b) => b.label.toLowerCase().localeCompare(a.label.toLowerCase()));
+      }
+
+      cardsObj = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
 
       viewTasks.innerHTML = '';
       cardsObj.forEach(card => card.createCard());
 }
 
-function filterByTag(filter) {
 
-}
 
-export { filter };
+export { filter, filterByOption, filterByAttr};

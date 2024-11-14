@@ -1,4 +1,5 @@
 import { viewTasks } from './view.js';
+import { filterByOption } from './filter.js';
 
 class Cards {
    constructor(label, topic, comment, id = generateUniqueId(), data = createData(), color = generateBackgroundColor()) {
@@ -26,7 +27,7 @@ class Cards {
          flex: 0 0 calc(25% - 20px);
          box-sizing: border-box;
          padding: 10px;
-         box-shadow: 1px 1px 5px #b9b9b9;
+         box-shadow: rgb(83 83 83) 5px 5px 18px;
          display: flex;
          flex-direction: column;
          border-radius: 5px;
@@ -176,12 +177,14 @@ function generateBackgroundColor() {
 }
 
 function cards() {
-   const cards = JSON.parse(localStorage.getItem('cards')) || [];
+   // const cards = JSON.parse(localStorage.getItem('cards')) || [];
 
-   const restoredCards = cards.map(obj => new Cards(obj.label, obj.topic, obj.comment, obj.id, obj.data, obj.color));
+   // const restoredCards = cards.map(obj => new Cards(obj.label, obj.topic, obj.comment, obj.id, obj.data, obj.color));
 
-   viewTasks.innerHTML = '';
-   restoredCards.forEach(card => card.createCard());
+   filterByOption();
+
+   // viewTasks.innerHTML = '';
+   // restoredCards.forEach(card => card.createCard());
 }
 
 function createNewCard(tag, topic, comment) {
