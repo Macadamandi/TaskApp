@@ -26,8 +26,9 @@ class Cards {
       cardWrap.style = `
          flex: 0 0 calc(25% - 20px);
          box-sizing: border-box;
+         max-width: 250px;
          padding: 10px;
-         box-shadow: rgb(83 83 83) 5px 5px 18px;
+         box-shadow: rgb(83, 83, 83) 1px 1px 3px;
          display: flex;
          flex-direction: column;
          border-radius: 5px;
@@ -49,17 +50,23 @@ class Cards {
          border-radius: 10px;
          font-size: 11px;
          color: #ffffff;
+         max-width: 80%;
+         overflow-x: hidden;
       `;
       cardTopic.style = `
          margin-bottom: 10px;
          height: 60px;
+         overflow-wrap: anywhere;
+         overflow-y: overlay;
       `;
       cardComment.style = `
          margin-bottom: 40px;
          height: 80px;
-         background-color: blanchedalmond;
+         background-color: #FFFADF;
          border-radius: 5px;
          padding: 10px;
+         overflow-wrap: break-word;
+         overflow-y: overlay;
       `;
 
       cardData.style = `

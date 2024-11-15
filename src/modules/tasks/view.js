@@ -28,7 +28,6 @@ function view() {
    `;
 
    viewTasks.style = `
-      background: linear-gradient(45deg, rgb(39 36 225 / 18%), rgb(34 123 50 / 24%));
       width: 100%;
       flex-grow: 5;
       display: flex;
@@ -37,6 +36,7 @@ function view() {
       padding: 15px;
       align-items: stretch;
       overflow-y: scroll;
+      overflow-x: hidden;
       max-height: 600px;
    `;
 

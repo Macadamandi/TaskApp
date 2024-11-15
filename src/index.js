@@ -4,17 +4,14 @@ window.addEventListener('load', () => {
       tasks = document.querySelector('.tasks'),
       ajaxContent = document.querySelector('.ajax-content');
 
-   console.log(window.location.pathname);
-
 
    calendar.addEventListener('click', () => {
-      loadContent('/dist/calendar/calendar.html', ajaxContent, '../calendal/calendar.bundje.js');
+      loadContent('/dist/calendar/calendar.html', ajaxContent, '../calendar/calendar.bundle.js');
 
    })
 
    tasks.addEventListener('click', () => {
       loadContent('/dist/tasks/tasks.html', ajaxContent, '../tasks/tasks.bundle.js');
-
    })
 
 });

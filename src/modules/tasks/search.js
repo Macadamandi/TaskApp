@@ -8,6 +8,7 @@ function search() {
 
    buttonSearch.addEventListener('click', () => {
       const req = inputSearch.value;
+      
       let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
 
       if (req) {
@@ -24,10 +25,13 @@ function search() {
                localStorage.setItem('search', 'true');
                localStorage.setItem('searchCards', JSON.stringify(cardsObj));
                filterByAttr(localStorage.getItem('filter'));
+               inputSearch.value = '';
+               inputSearch.style.border = `none`;
                //viewTasks.innerHTML = '';
                //restoredCards.forEach(card => card.createCard());
             } else {
                console.log('Result not found');
+               inputSearch.value = '';
             }
          } else {
             console.log('LocalStorage is empty');
