@@ -1,0 +1,236 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #e6eaed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    font-family: monospace;
+}
+
+label {
+    width: 100px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hover:hover {
+    cursor: pointer;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.main {
+    width: 1200px;
+    height: 811px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 1px 1px 5px #b9b9b9;
+}
+
+.wrapper {
+    padding: 20px 20px 0 20px;
+    height: 100%;
+}
+
+/* MENU */
+
+.menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.menu::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: #dddddd;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.menu__search-input {
+    height: 32px;
+    border: none;
+    background-color: #e0e2e3;
+    border-radius: 5px;
+    padding-left: 34px;
+}
+
+.menu__search {
+    position: relative;
+}
+
+.menu__search::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 10px;
+    transform: translateY(50%);
+    background-image: url("../assets/images/icons/icon-search.png");
+}
+
+.menu__search-button {
+    height: 32px;
+    border: none;
+    background-color: turquoise;
+    border-radius: 5px;
+    padding: 0px 10px 0;
+    margin-left: 5px;
+}
+
+.menu__search-button:hover {
+    cursor: pointer;
+}
+
+.menu__logo {
+    flex-grow: 1;
+}
+
+.menu__logo-icon:hover {
+    cursor: pointer;
+}
+
+.menu__user {
+    display: flex;
+    margin-left: 50px;
+}
+
+.menu__user-account {
+    margin-left: 10px;
+}
+
+.menu__user-settings:hover {
+    cursor: pointer;
+}
+
+.menu__user-account:hover {
+    cursor: pointer;
+}
+
+/* Main Content */
+
+.main-сontent {
+    display: flex;
+    height: calc(100% - 69px);
+}
+
+.sidebar {
+    width: 200px;
+    height: 100%;
+    padding-right: 10px;
+    position: relative;
+    padding-top: 5px;
+}
+
+.sidebar::after {
+    content: "";
+    width: 1px;
+    height: 100vh;
+    background-color: #dddddd;
+    right: 0;
+    top: 0;
+    position: absolute;
+}
+
+.sidebar--style {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    color: #9d9d9d;
+    font-size: 16px;
+    font-family: monospace;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar--style:hover {
+    cursor: pointer;
+    background-color: #dddddd;
+}
+
+.ajax-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.index-content {
+    padding: 50px;
+    background: linear-gradient(45deg, rgb(39 36 225 / 0%), rgb(34 123 50 / 21%));
+    font-size: 0.9rem;
+}
+
+.index-content-list {
+    padding-left: 30px;
+    list-style: none;
+}
+
+.index-content-list li {
+    position: relative;
+}
+
+.index-content-list li::before {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    content: url('../assets/images/icons/check.png');
+}
+
+.index-content-list li::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    width: 6px;
+    height: 6px;
+    left: -15px;
+    filter: blur(8px);
+    background-color: #06dd5a;
+}
+
+.img-filter {
+    background-image: url("../assets/images/icons/filter.png");
+    width: 24px;
+    height: 24px;
+}
+
+#calendar {
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(45deg, rgb(39 36 225 / 18%), rgb(34 123 50 / 24%)); */
+    padding: 40px;
+    /* background-image: url("../assets/images/simple-calendar-fullcalendar.jpg"); */
+    background-clip: border-box;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+}

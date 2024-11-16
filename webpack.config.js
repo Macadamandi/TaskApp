@@ -11,7 +11,7 @@ module.exports = {
     tasks: './src/tasks.js',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
     filename: (pathData) => {
       const name = pathData.chunk.name;
       return `${name}/${name}.bundle.js`; // JS в папках
