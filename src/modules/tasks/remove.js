@@ -10,6 +10,8 @@ function removeCard() {
          cardsObj = cardsObj.filter(card => card.id !== cardId);
          localStorage.setItem('cards', JSON.stringify(cardsObj));
 
+         localStorage.setItem('card-status', 'remove');
+
          cards();
       }
    });

@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -12,41 +14,54 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: (pathData) => {
       const name = pathData.chunk.name;
-      return `${name}/${name}.bundle.js`; // JS файлы будут собираться в папки по имени
+      return `${name}/${name}.bundle.js`; // JS в папках
     },
-    clean: true, // Очистка папки dist перед сборкой
+    assetModuleFilename: 'assets/images/[name][ext]', // Путь для изображений
+    clean: true, // Очистка dist перед сборкой
   },
-  watch: true,
   module: {
     rules: [
       {
-        test: /\.js$/, // Для обработки JavaScript файлов
+        test: /\.js$/, // Для JavaScript
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader', // Используем Babel для транспиляции
+          loader: 'babel-loader',
         },
       },
       {
-        test: /\.css$/, // Для обработки CSS файлов (если нужно)
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/, // Для CSS
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|ico)$/, // Для изображений
+        type: 'asset/resource',
       },
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/templates/index.html', // Шаблон для главной страницы
-      filename: 'index/index.html', // Генерируем файл в папке index с именем index.html
-      chunks: ['index'], // Подключаем только index.bundle.js
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css', // Собирает все стили в папку css
     }),
     new HtmlWebpackPlugin({
-      template: './src/templates/calendar.html', // Шаблон для страницы календаря
-      filename: 'calendar/calendar.html', // Генерируем файл в папке calendar с именем calendar.html
-      chunks: ['calendar'], // Подключаем только calendar.bundle.js
+      template: './src/templates/index.html',
+      filename: 'index/index.html',
+      chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
-      template: './src/templates/tasks.html', // Шаблон для страницы задач
-      filename: 'tasks/tasks.html', // Генерируем файл в папке tasks с именем tasks.html
-      chunks: ['tasks'], // Подключаем только tasks.bundle.js
+      template: './src/templates/calendar.html',
+      filename: 'calendar/calendar.html',
+      chunks: ['calendar'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/templates/tasks.html',
+      filename: 'tasks/tasks.html',
+      chunks: ['tasks'],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/assets/images', to: 'assets/images' }, // Копировать изображения
+        { from: 'src/css', to: 'css' }, // Копировать стили
+      ],
     }),
   ],
   resolve: {

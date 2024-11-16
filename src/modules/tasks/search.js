@@ -1,44 +1,53 @@
 import { Cards } from './cards.js';
 import { filterByAttr } from './filter.js';
 
+
+function querySearch() {
+   let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
+   cardsObj = cardsObj.filter((card) => {
+      if ((card.label.toLowerCase().includes(localStorage.getItem('search-query').toLowerCase()) || card.topic.toLowerCase().includes(localStorage.getItem('search-query').toLowerCase()))) {
+         return true;
+      } else {
+         return false;
+      }
+   });
+   localStorage.setItem('search-cards', JSON.stringify(cardsObj));
+}
+
 function search() {
    const menuSearch = document.querySelector('.menu__search'),
-      inputSearch = menuSearch.querySelector('.menu__search-input'),
       buttonSearch = menuSearch.querySelector('.menu__search-button');
 
    buttonSearch.addEventListener('click', () => {
+      const inputSearch = menuSearch.querySelector('.menu__search-input');
+      localStorage.removeItem('search-cards');
       const req = inputSearch.value;
-      
+
       let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
 
-      if (req) {
-         if (cardsObj.length != 0) {
-            cardsObj = cardsObj.filter((card) => {
-               if (req && (card.label.toLowerCase().includes(inputSearch.value.toLowerCase()) || card.topic.toLowerCase().includes(inputSearch.value.toLowerCase()))) {
-                  return true;
-               } else {
-                  return false;
-               }
-            });
-            if (cardsObj.length != 0) {
-               //restoredCards = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
-               localStorage.setItem('search', 'true');
-               localStorage.setItem('searchCards', JSON.stringify(cardsObj));
-               filterByAttr(localStorage.getItem('filter'));
-               inputSearch.value = '';
-               inputSearch.style.border = `none`;
-               //viewTasks.innerHTML = '';
-               //restoredCards.forEach(card => card.createCard());
+      if (req !== '' && cardsObj.length != 0) {
+         cardsObj = cardsObj.filter((card) => {
+            if ((card.label.toLowerCase().includes(req.toLowerCase()) || card.topic.toLowerCase().includes(req.toLowerCase()))) {
+               return true;
             } else {
-               console.log('Result not found');
-               inputSearch.value = '';
+               return false;
             }
+         });
+         if (cardsObj.length > 0) {
+            localStorage.setItem('search-status', 'true')
+            localStorage.setItem('search-query', req);
+            localStorage.setItem('search-cards', JSON.stringify(cardsObj));
+            filterByAttr(localStorage.getItem('filter'));
          } else {
-            console.log('LocalStorage is empty');
+            console.log('Result not found');
          }
-
-      } else {
-         localStorage.removeItem('search');
+      } else if (cardsObj.length == 0) {
+         console.log('LocalStorage is empty');
+      } else if (req == '') {
+         localStorage.removeItem('search-cards');
+         localStorage.removeItem('search-status');
+         localStorage.removeItem('search-query');
+         inputSearch.value = '';
          filterByAttr(localStorage.getItem('filter'));
          console.log('Please, enter keywords');
       }
@@ -47,4 +56,4 @@ function search() {
 }
 
 
-export { search };
+export { search, querySearch };

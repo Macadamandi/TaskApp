@@ -164,6 +164,7 @@ function createModal(BTN_CONST) {
 
 function addToLocalStorage(inputLabel, inputTopic, inputComment, modalWrapp, addButtonToLocalStorage) {
    addButtonToLocalStorage.addEventListener('click', () => {
+      localStorage.setItem('card-status', 'add');
       createNewTask(inputLabel.value, inputTopic.value, inputComment.value, modalWrapp);
    });
 }

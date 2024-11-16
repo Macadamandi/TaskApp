@@ -53,6 +53,7 @@ function change() {
                });
                localStorage.setItem('cards', JSON.stringify(cardsObj));
                modalWrapp.remove();
+               localStorage.setItem('card-status', 'change');
                cards();
             } else {
                console.log('Please, fill inputs');

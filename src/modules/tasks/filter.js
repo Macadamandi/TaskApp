@@ -1,5 +1,6 @@
 import { filterDataTask, viewTasks } from './view.js';
 import { Cards } from './cards.js';
+import { querySearch } from './search.js';
 
 function filter() {
       const selectFilter = document.createElement('select'),
@@ -43,25 +44,21 @@ function filter() {
       filterDataTask.appendChild(selectFilter);
       selectFilter.insertAdjacentElement('beforebegin', labelForSelect);
 
-      filterByOption();
+      localStorage.removeItem('search-cards');
+      localStorage.removeItem('search-status');
+      localStorage.removeItem('search-query');
 
       const selectButton = document.querySelector('.selectButton');
-      filterByAttr(selectButton.value);
       localStorage.setItem('filter', selectButton.value);
-
-      localStorage.removeItem('searchCards');
-      localStorage.removeItem('search');
+      filterByAttr(localStorage.getItem('filter'));
 }
 
 function filterByOption() {
       const selectButton = document.querySelector('.selectButton');
-      filterByAttr(localStorage.getItem('filter'));
       selectButton.addEventListener('change', (e) => {
+            const cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
             const filter = e.target.value;
             localStorage.setItem('filter', e.target.value);
-            const cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
-            console.log(filter);
-
             if (cardsObj.length != 0) {
                   filterByAttr(filter);
             } else {
@@ -70,13 +67,21 @@ function filterByOption() {
       });
 }
 
+function searchByNewStatusCard(cardsObj) {
+      querySearch();
+      cardsObj = JSON.parse(localStorage.getItem('search-cards'));
+      localStorage.removeItem('card-status');
+      return cardsObj;
+}
+
 function filterByAttr(filter) {
       let cardsObj = JSON.parse(localStorage.getItem('cards')) || [];
 
-      if(localStorage.getItem('search') === 'true') {
-            cardsObj = JSON.parse(localStorage.getItem('searchCards'));
+      if (localStorage.getItem('search-status') === 'true' && (localStorage.getItem('card-status') === 'add' || localStorage.getItem('card-status') === 'remove' || localStorage.getItem('card-status') === 'change')) {
+            cardsObj = searchByNewStatusCard(cardsObj)
+      } else if (localStorage.getItem('search-status') === 'true') {
+            cardsObj = JSON.parse(localStorage.getItem('search-cards'));
       }
-
 
       if (filter == 'date-old') {
             cardsObj = cardsObj.sort((a, b) => a.data - b.data);
@@ -86,20 +91,21 @@ function filterByAttr(filter) {
             cardsObj = cardsObj.sort((a, b) => b.data - a.data);
       }
 
-      if(filter === 'tag-az') {
-            cardsObj = cardsObj.sort((a,b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
+      if (filter === 'tag-az') {
+            cardsObj = cardsObj.sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
       }
 
-      if(filter === 'tag-za') {
-            cardsObj = cardsObj.sort((a,b) => b.label.toLowerCase().localeCompare(a.label.toLowerCase()));
+      if (filter === 'tag-za') {
+            cardsObj = cardsObj.sort((a, b) => b.label.toLowerCase().localeCompare(a.label.toLowerCase()));
       }
 
       cardsObj = cardsObj.map(card => new Cards(card.label, card.topic, card.comment, card.id, card.data, card.color));
 
       viewTasks.innerHTML = '';
       cardsObj.forEach(card => card.createCard());
+      filterByOption();
 }
 
 
 
-export { filter, filterByOption, filterByAttr};
+export { filter, filterByOption, filterByAttr };

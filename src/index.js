@@ -6,12 +6,12 @@ window.addEventListener('load', () => {
 
 
    calendar.addEventListener('click', () => {
-      loadContent('/dist/calendar/calendar.html', ajaxContent, '../calendar/calendar.bundle.js');
+      loadContent('../calendar/calendar.html', ajaxContent, '../calendar/calendar.bundle.js');
 
    })
 
    tasks.addEventListener('click', () => {
-      loadContent('/dist/tasks/tasks.html', ajaxContent, '../tasks/tasks.bundle.js');
+      loadContent('../tasks/tasks.html', ajaxContent, '../tasks/tasks.bundle.js');
    })
 
 });

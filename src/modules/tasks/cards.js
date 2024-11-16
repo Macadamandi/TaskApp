@@ -1,5 +1,5 @@
 import { viewTasks } from './view.js';
-import { filterByOption } from './filter.js';
+import { filterByOption, filterByAttr } from './filter.js';
 
 class Cards {
    constructor(label, topic, comment, id = generateUniqueId(), data = createData(), color = generateBackgroundColor()) {
@@ -88,7 +88,7 @@ class Cards {
       `;
 
       dots.style = `
-         background-image: url('/src/assets/images/icons/icon-menu.png');
+         background-image: url('../assets/images/icons/icon-menu.png');
          width: 24px;
          height: 24px;   
          display: inline-block;
@@ -184,14 +184,8 @@ function generateBackgroundColor() {
 }
 
 function cards() {
-   // const cards = JSON.parse(localStorage.getItem('cards')) || [];
-
-   // const restoredCards = cards.map(obj => new Cards(obj.label, obj.topic, obj.comment, obj.id, obj.data, obj.color));
-
-   filterByOption();
-
-   // viewTasks.innerHTML = '';
-   // restoredCards.forEach(card => card.createCard());
+   //filterByOption();
+   filterByAttr(localStorage.getItem('filter'));
 }
 
 function createNewCard(tag, topic, comment) {
