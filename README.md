@@ -1,3 +1,5 @@
+Hello, you can find this app here https://task-app-aoqi.vercel.app
+
 There is development of TaskApp in process.
   1. App works with localstorage.
   2. Add function "Add" task.
@@ -9,7 +11,7 @@ There is development of TaskApp in process.
   8. Add overflow check and Fullcalendar
 
 I want to Add:
-  1. Changed Fullcalendar
+  1. Add localStorage for Fullcalendar
 
 
 
